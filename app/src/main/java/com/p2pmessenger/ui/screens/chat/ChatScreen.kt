@@ -1,8 +1,10 @@
 package com.p2pmessenger.ui.screens.chat
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -30,12 +32,27 @@ import java.util.*
 @Composable
 fun ChatScreen(
     peerId: String,
-    onBack: () -> Unit
+    peerName: String = "Peer",
+    onBack: () -> Unit,
+    onVoiceCall: () -> Unit = {},
+    onVideoCall: () -> Unit = {},
+    onSendMessage: (String) -> Unit = {},
+    onSendFile: (Uri, String) -> Unit = { _, _ -> }
 ) {
     var messageText by remember { mutableStateOf("") }
     val messages = remember { mutableListOf<Message>() }
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
+    
+    // File picker launcher
+    val filePickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri ->
+        uri?.let {
+            val fileName = getFileName(it)
+            onSendFile(it, fileName)
+        }
+    }
     
     Scaffold(
         topBar = {
@@ -60,13 +77,13 @@ fun ChatScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = {}) {
-                        Icon(Icons.Default.Call, contentDescription = "Call")
+                    IconButton(onClick = onVoiceCall) {
+                        Icon(Icons.Default.Call, contentDescription = "Voice Call", tint = Primary)
                     }
-                    IconButton(onClick = {}) {
-                        Icon(Icons.Default.Videocam, contentDescription = "Video Call")
+                    IconButton(onClick = onVideoCall) {
+                        Icon(Icons.Default.Videocam, contentDescription = "Video Call", tint = Primary)
                     }
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = { /* More options */ }) {
                         Icon(Icons.Default.MoreVert, contentDescription = "More")
                     }
                 },
@@ -132,8 +149,13 @@ fun ChatScreen(
                     .padding(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                IconButton(onClick = {}) {
-                    Icon(Icons.Default.AttachFile, contentDescription = "Attach")
+                IconButton(onClick = { filePickerLauncher.launch("*/*") }) {
+                    Icon(Icons.Default.AttachFile, contentDescription = "Attach file", tint = Primary)
+                }
+                
+                // Voice message button
+                IconButton(onClick = { /* Voice recording */ }) {
+                    Icon(Icons.Default.Mic, contentDescription = "Voice message", tint = Primary)
                 }
                 
                 OutlinedTextField(
@@ -161,7 +183,7 @@ fun ChatScreen(
                         .clickable(enabled = messageText.isNotBlank()) {
                             if (messageText.isNotBlank()) {
                                 coroutineScope.launch {
-                                    // Send message logic here
+                                    onSendMessage(messageText)
                                     messageText = ""
                                 }
                             }
