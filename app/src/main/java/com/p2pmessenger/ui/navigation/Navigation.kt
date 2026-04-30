@@ -8,18 +8,16 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.p2pmessenger.ui.screens.auth.AuthScreen
 import com.p2pmessenger.ui.screens.call.CallScreen
 import com.p2pmessenger.ui.screens.chat.AdvancedChatScreen
-import com.p2pmessenger.ui.screens.chat.ChatScreen
-import com.p2pmessenger.ui.screens.chatlist.ChatListScreen
+import com.p2pmessenger.ui.screens.chat.GroupChatScreen
 import com.p2pmessenger.ui.screens.contacts.ContactsScreen
+import com.p2pmessenger.ui.screens.chatlist.ChatListScreen
 import com.p2pmessenger.ui.screens.qrcode.QRCodeScreen
 import com.p2pmessenger.ui.screens.settings.SettingsScreen
 import com.p2pmessenger.p2p.WebRTCManager
-import javax.inject.Inject
 
 sealed class Screen(val route: String) {
     object Auth : Screen("auth")
@@ -27,8 +25,11 @@ sealed class Screen(val route: String) {
     object Chat : Screen("chat/{peerId}") {
         fun createRoute(peerId: String) = "chat/$peerId"
     }
+    object GroupChat : Screen("group/{groupId}") {
+        fun createRoute(groupId: String) = "group/$groupId"
+    }
     object Contacts : Screen("contacts")
-    object QRCode : Screen("qr_code")
+    object QRCode : Screen("qrcode")
     object Settings : Screen("settings")
     object Call : Screen("call/{peerId}/{isVideo}") {
         fun createRoute(peerId: String, isVideo: Boolean) = "call/$peerId/$isVideo"
@@ -36,15 +37,16 @@ sealed class Screen(val route: String) {
 }
 
 @Composable
-fun P2PNavigation(
-    navController: NavHostController = rememberNavController(),
-    webRTCManager: WebRTCManager
+fun AppNavigation(
+    navController: NavHostController,
+    webRTCManager: WebRTCManager,
+    startDestination: String = Screen.Auth.route
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Auth.route
+        startDestination = startDestination
     ) {
-        // Auth
+        // Auth Screen
         composable(Screen.Auth.route) {
             AuthScreen(
                 onLoginSuccess = {
@@ -55,7 +57,7 @@ fun P2PNavigation(
             )
         }
         
-        // Chat List
+        // Chat List Screen
         composable(Screen.ChatList.route) {
             ChatListScreen(
                 onChatClick = { peerId ->
@@ -73,7 +75,7 @@ fun P2PNavigation(
             )
         }
         
-        // Chat
+        // Chat Screen
         composable(
             route = Screen.Chat.route,
             arguments = listOf(navArgument("peerId") { type = NavType.StringType })
@@ -83,14 +85,12 @@ fun P2PNavigation(
             
             AdvancedChatScreen(
                 peerId = peerId,
-                peerName = peerId.take(8),
+                peerName = peerId.take(8), // Would get from repository
                 onBack = { navController.popBackStack() },
                 onVoiceCall = {
-                    webRTCManager.startCall(peerId, false)
                     navController.navigate(Screen.Call.createRoute(peerId, false))
                 },
                 onVideoCall = {
-                    webRTCManager.startCall(peerId, true)
                     navController.navigate(Screen.Call.createRoute(peerId, true))
                 },
                 onSendMessage = { content, replyToId ->
@@ -99,31 +99,55 @@ fun P2PNavigation(
                 onSendFile = { uri, fileName, type ->
                     webRTCManager.sendFile(uri, fileName)
                 },
-                onDeleteMessage = { },
-                onReplyMessage = { },
-                onSearch = { }
+                onDeleteMessage = { /* Delete from DB */ },
+                onReplyMessage = { /* Set reply */ },
+                onSearch = { /* Search */ }
             )
         }
         
-        // Contacts
+        // Group Chat Screen
+        composable(
+            route = Screen.GroupChat.route,
+            arguments = listOf(navArgument("groupId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val groupId = backStackEntry.arguments?.getString("groupId") ?: ""
+            // Would load group from repository
+            /*
+            GroupChatScreen(
+                group = group,
+                members = members,
+                onBack = { navController.popBackStack() },
+                onAddMember = { /* Add member */ },
+                onLeaveGroup = { /* Leave */ },
+                onDeleteGroup = { /* Delete */ },
+                onMemberClick = { memberId ->
+                    navController.navigate(Screen.Chat.createRoute(memberId))
+                },
+                onEditGroup = { /* Edit */ },
+                currentUserRole = GroupRole.MEMBER
+            )
+            */
+        }
+        
+        // Contacts Screen
         composable(Screen.Contacts.route) {
             ContactsScreen(
                 onBack = { navController.popBackStack() },
                 onContactClick = { peerId ->
                     navController.navigate(Screen.Chat.createRoute(peerId))
                 },
-                onAddContact = { }
+                onAddContact = { /* Show add dialog */ }
             )
         }
         
-        // QR Code
+        // QR Code Screen
         composable(Screen.QRCode.route) {
             QRCodeScreen(
                 onBack = { navController.popBackStack() }
             )
         }
         
-        // Settings
+        // Settings Screen
         composable(Screen.Settings.route) {
             SettingsScreen(
                 onBack = { navController.popBackStack() },
@@ -135,7 +159,7 @@ fun P2PNavigation(
             )
         }
         
-        // Call
+        // Call Screen
         composable(
             route = Screen.Call.route,
             arguments = listOf(
@@ -160,10 +184,10 @@ fun P2PNavigation(
                     webRTCManager.endCall()
                     navController.popBackStack()
                 },
-                onToggleMute = { },
-                onToggleSpeaker = { },
-                onToggleVideo = { },
-                onFlipCamera = { }
+                onToggleMute = { /* Toggle mute */ },
+                onToggleSpeaker = { /* Toggle speaker */ },
+                onToggleVideo = { /* Toggle video */ },
+                onFlipCamera = { /* Flip camera */ }
             )
         }
     }
