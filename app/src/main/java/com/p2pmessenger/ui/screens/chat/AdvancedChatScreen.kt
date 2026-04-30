@@ -309,7 +309,7 @@ fun ChatTopBar(
                     Icon(Icons.Default.Call, contentDescription = "Voice Call", tint = Primary)
                 }
                 IconButton(onClick = onVideoCall) {
-                    Icon(Icons(Icons.Default.Videocam, contentDescription = "Video Call", tint = Primary)
+                    Icon(imageVector = Icons.Default.Videocam, contentDescription = "Video Call", tint = Primary)
                 }
                 IconButton(onClick = { /* More */ }) {
                     Icon(Icons.Default.MoreVert, contentDescription = "More")
