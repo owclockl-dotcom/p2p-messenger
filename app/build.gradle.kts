@@ -93,9 +93,8 @@ dependencies {
     // Simple encryption using standard crypto
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
     
-    // OkHttp for WebSocket P2P
+    // OkHttp for WebSocket P2P (WebSocket is included in main okhttp)
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
-    implementation("com.squareup.okhttp3:okhttp-ws:4.12.0")
 
     // QR Code
     implementation("com.google.zxing:core:3.5.2")
