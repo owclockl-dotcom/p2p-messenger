@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">P2P Messenger</string>
+    <string name="chat_list">Chats</string>
+    <string name="settings">Settings</string>
+    <string name="my_qr_code">My QR Code</string>
+    <string name="scan_qr">Scan QR Code</string>
+    <string name="type_message">Type a message…</string>
+    <string name="online">online</string>
+    <string name="offline">offline</string>
+    <string name="connecting">connecting…</string>
+    <string name="encrypted">Encrypted</string>
+    <string name="no_chats">No chats yet</string>
+    <string name="scan_qr_to_connect">Scan QR code to connect with a peer</string>
+    <string name="share_qr">Share this QR code to let others connect</string>
+    <string name="peer_id">Peer ID</string>
+    <string name="copy">Copy</string>
+    <string name="copied">Copied</string>
+    <string name="delete">Delete</string>
+    <string name="clear_chat">Clear chat</string>
+    <string name="encryption_info">End-to-end encrypted</string>
+    <string name="connection_lost">Connection lost</string>
+    <string name="reconnecting">Reconnecting…</string>
+</resources>
