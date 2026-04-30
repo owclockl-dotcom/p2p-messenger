@@ -23,7 +23,7 @@ object DatabaseModule {
             AppDatabase::class.java,
             "p2p_messenger_database"
         )
-            .fallbackToDestructiveMigration()
+            .addMigrations(AppDatabase.MIGRATION_1_2)
             .build()
     }
     
@@ -37,5 +37,17 @@ object DatabaseModule {
     @Singleton
     fun providePeerDao(database: AppDatabase): PeerDao {
         return database.peerDao()
+    }
+    
+    @Provides
+    @Singleton
+    fun provideGroupChatDao(database: AppDatabase): GroupChatDao {
+        return database.groupChatDao()
+    }
+    
+    @Provides
+    @Singleton
+    fun provideGroupMemberDao(database: AppDatabase): GroupMemberDao {
+        return database.groupMemberDao()
     }
 }
