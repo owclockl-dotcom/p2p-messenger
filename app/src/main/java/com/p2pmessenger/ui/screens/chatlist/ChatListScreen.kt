@@ -53,7 +53,7 @@ fun ChatListScreen(
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Primary,
+                    containerColor = Background,
                     titleContentColor = Color.White,
                     actionIconContentColor = Color.White
                 )
@@ -62,7 +62,7 @@ fun ChatListScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = onQRCodeClick,
-                containerColor = Primary,
+                containerColor = SurfaceVariant,
                 contentColor = Color.White
             ) {
                 Icon(Icons.Default.Add, contentDescription = "New Chat")
@@ -108,7 +108,7 @@ fun ChatItem(
             .clickable(onClick = onClick),
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color.White
+            containerColor = Surface
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
@@ -149,7 +149,7 @@ fun ChatItem(
                         text = chat.peerName,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
-                        color = Color.Black,
+                        color = Color.White,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -188,7 +188,7 @@ fun ChatItem(
                     if (chat.unreadCount > 0) {
                         Spacer(modifier = Modifier.width(8.dp))
                         Badge(
-                            containerColor = Primary
+                            containerColor = SurfaceVariant
                         ) {
                             Text(
                                 text = if (chat.unreadCount > 99) "99+" else chat.unreadCount.toString(),

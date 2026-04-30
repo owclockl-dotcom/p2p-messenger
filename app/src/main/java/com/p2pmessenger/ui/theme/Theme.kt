@@ -15,10 +15,12 @@ import androidx.core.view.WindowCompat
 private val DarkColorScheme = darkColorScheme(
     primary = Primary,
     secondary = Accent,
-    background = Color(0xFF1C1C1E),
-    surface = Color(0xFF2C2C2E),
-    onBackground = Color.White,
-    onSurface = Color.White,
+    background = Background,
+    surface = Surface,
+    surfaceVariant = SurfaceVariant,
+    onBackground = OnBackground,
+    onSurface = OnSurface,
+    error = Error,
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -26,8 +28,10 @@ private val LightColorScheme = lightColorScheme(
     secondary = Accent,
     background = Background,
     surface = Surface,
+    surfaceVariant = SurfaceVariant,
     onBackground = OnBackground,
     onSurface = OnSurface,
+    error = Error,
 )
 
 @Composable
@@ -44,8 +48,9 @@ fun P2PMessengerTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
+            window.statusBarColor = colorScheme.background.toArgb()
+            window.navigationBarColor = colorScheme.background.toArgb()
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
         }
     }
 

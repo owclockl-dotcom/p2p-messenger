@@ -70,7 +70,7 @@ fun ChatScreen(
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Primary,
+                    containerColor = Background,
                     titleContentColor = Color.White,
                     navigationIconContentColor = Color.White,
                     actionIconContentColor = Color.White
@@ -100,7 +100,7 @@ fun ChatScreen(
             // Encryption info
             Surface(
                 modifier = Modifier.fillMaxWidth(),
-                color = Color(0xFFE8F5E9)
+                color = Surface
             ) {
                 Row(
                     modifier = Modifier
@@ -112,14 +112,14 @@ fun ChatScreen(
                     Icon(
                         imageVector = Icons.Default.Lock,
                         contentDescription = null,
-                        tint = Color(0xFF4CAF50),
+                        tint = Success,
                         modifier = Modifier.size(16.dp)
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = "End-to-end encrypted",
                         fontSize = 12.sp,
-                        color = Color(0xFF4CAF50)
+                        color = Success
                     )
                 }
             }
@@ -141,7 +141,12 @@ fun ChatScreen(
                     modifier = Modifier.weight(1f),
                     placeholder = { Text("Type a message…") },
                     shape = RoundedCornerShape(24.dp),
-                    maxLines = 4
+                    maxLines = 4,
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        containerColor = Surface,
+                        focusedBorderColor = SurfaceVariant,
+                        unfocusedBorderColor = Divider
+                    )
                 )
                 
                 Spacer(modifier = Modifier.width(8.dp))
@@ -199,7 +204,7 @@ fun MessageBubble(message: Message) {
                     Text(
                         text = message.content,
                         fontSize = 15.sp,
-                        color = Color.Black
+                        color = Color.White
                     )
                 }
             }

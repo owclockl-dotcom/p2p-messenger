@@ -17,7 +17,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.p2pmessenger.ui.theme.Background
 import com.p2pmessenger.ui.theme.Primary
+import com.p2pmessenger.ui.theme.Surface
+import com.p2pmessenger.ui.theme.SurfaceVariant
 import com.p2pmessenger.ui.theme.TextSecondary
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,7 +44,7 @@ fun SettingsScreen(
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Primary,
+                    containerColor = Background,
                     titleContentColor = Color.White,
                     navigationIconContentColor = Color.White
                 )
@@ -61,7 +64,7 @@ fun SettingsScreen(
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp, vertical = 4.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = Color.White
+                        containerColor = Surface
                     ),
                     elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
                 ) {
@@ -75,7 +78,7 @@ fun SettingsScreen(
                             modifier = Modifier
                                 .size(64.dp)
                                 .clip(CircleShape)
-                                .background(com.p2pmessenger.ui.theme.Primary),
+                                .background(SurfaceVariant),
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
@@ -92,7 +95,8 @@ fun SettingsScreen(
                             Text(
                                 text = "User",
                                 fontSize = 18.sp,
-                                fontWeight = FontWeight.Medium
+                                fontWeight = FontWeight.Medium,
+                                color = Color.White
                             )
                             Text(
                                 text = "peer123",
@@ -201,7 +205,7 @@ fun SettingsHeader(title: String) {
         text = title,
         fontSize = 14.sp,
         fontWeight = FontWeight.Medium,
-        color = Primary,
+        color = TextSecondary,
         modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp)
     )
 }
@@ -220,7 +224,7 @@ fun SettingsItem(
             .padding(horizontal = 16.dp, vertical = 2.dp)
             .clickable(onClick = onClick),
         colors = CardDefaults.cardColors(
-            containerColor = Color.White
+            containerColor = Surface
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
@@ -233,7 +237,7 @@ fun SettingsItem(
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                tint = if (isDestructive) Color.Red else Primary,
+                tint = if (isDestructive) Color.Red else SurfaceVariant,
                 modifier = Modifier.size(24.dp)
             )
             
@@ -246,7 +250,7 @@ fun SettingsItem(
                     text = title,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium,
-                    color = if (isDestructive) Color.Red else Color.Black
+                    color = if (isDestructive) Color.Red else Color.White
                 )
                 Text(
                     text = subtitle,

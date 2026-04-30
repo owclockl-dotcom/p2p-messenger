@@ -15,7 +15,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
+import com.p2pmessenger.ui.theme.Background
 import com.p2pmessenger.ui.theme.Primary
+import com.p2pmessenger.ui.theme.Surface
+import com.p2pmessenger.ui.theme.SurfaceVariant
 import com.p2pmessenger.ui.theme.TextSecondary
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,7 +44,7 @@ fun QRCodeScreen(
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Primary,
+                    containerColor = Background,
                     titleContentColor = Color.White,
                     navigationIconContentColor = Color.White
                 )
@@ -104,7 +107,7 @@ fun MyQRCodeContent() {
             modifier = Modifier.size(280.dp),
             shape = RoundedCornerShape(16.dp),
             colors = CardDefaults.cardColors(
-                containerColor = Color.White
+                containerColor = Surface
             ),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
         ) {
@@ -117,7 +120,7 @@ fun MyQRCodeContent() {
                     modifier = Modifier.size(240.dp),
                     shape = RoundedCornerShape(12.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = Color(0xFFF5F5F5)
+                        containerColor = SurfaceVariant
                     )
                 ) {
                     Box(
@@ -167,7 +170,7 @@ fun MyQRCodeContent() {
         Card(
             modifier = Modifier.fillMaxWidth(0.8f),
             colors = CardDefaults.cardColors(
-                containerColor = Color(0xFFF5F5F5)
+                containerColor = Surface
             )
         ) {
             Column(
