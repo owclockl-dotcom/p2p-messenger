@@ -93,13 +93,9 @@ dependencies {
     // Simple encryption using standard crypto
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
     
-    // Ktor for P2P networking
-    implementation("io.ktor:ktor-client-core:2.3.6")
-    implementation("io.ktor:ktor-client-cio:2.3.6")
-    implementation("io.ktor:ktor-client-websockets:2.3.6")
-    implementation("io.ktor:ktor-server-core:2.3.6")
-    implementation("io.ktor:ktor-server-cio:2.3.6")
-    implementation("io.ktor:ktor-server-websockets:2.3.6")
+    // OkHttp for WebSocket P2P
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:okhttp-ws:4.12.0")
 
     // QR Code
     implementation("com.google.zxing:core:3.5.2")

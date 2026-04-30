@@ -74,7 +74,7 @@ fun SettingsScreen(
                             modifier = Modifier
                                 .size(64.dp)
                                 .clip(CircleShape)
-                                .background(Primary),
+                                .background(com.p2pmessenger.ui.theme.Primary),
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
