@@ -1,6 +1,7 @@
 package com.p2pmessenger.p2p
 
 import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -17,7 +18,7 @@ import javax.inject.Singleton
 
 @Singleton
 class WebRTCManager @Inject constructor(
-    private val context: Context
+    @ApplicationContext private val context: Context
 ) {
     
     private val _connectionState = MutableStateFlow<ConnectionState>(ConnectionState.Disconnected)
