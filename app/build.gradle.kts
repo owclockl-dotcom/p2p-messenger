@@ -84,11 +84,14 @@ dependencies {
     implementation("androidx.room:room-ktx:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
 
-    // WebRTC for P2P
-    implementation("org.webrtc:google-webrtc:1.0.32006")
+    // WebRTC for P2P - temporarily disabled, will implement simpler version
+    // implementation("io.github.devnied:webrtc-android:1.0.0")
 
-    // Signal Protocol for E2E Encryption
-    implementation("org.whispersystems:signal-protocol-android:2.8.0")
+    // Signal Protocol for E2E Encryption - temporarily disabled, will implement simpler version
+    // implementation("com.github.whispersystems:signal-protocol-android:2.8.0")
+    
+    // Simple encryption using standard crypto
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
 
     // QR Code
     implementation("com.google.zxing:core:3.5.2")

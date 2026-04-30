@@ -31,7 +31,7 @@ class MessageRepository @Inject constructor(
         val messageId = UUID.randomUUID().toString()
         
         // Encrypt message
-        val encryptedContent = encryptionManager.encryptMessage(peerId, content)
+        val encryptedContent = encryptionManager.encryptMessage(content)
         
         val message = Message(
             id = messageId,
@@ -58,7 +58,7 @@ class MessageRepository @Inject constructor(
         val messageId = UUID.randomUUID().toString()
         
         // Decrypt message
-        val decryptedContent = encryptionManager.decryptMessage(peerId, encryptedContent)
+        val decryptedContent = encryptionManager.decryptMessage(encryptedContent)
         
         val message = Message(
             id = messageId,
