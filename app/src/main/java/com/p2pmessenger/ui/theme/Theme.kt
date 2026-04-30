@@ -15,6 +15,7 @@ import androidx.core.view.WindowCompat
 private val DarkColorScheme = darkColorScheme(
     primary = Primary,
     secondary = Accent,
+    tertiary = GradientEnd,
     background = Background,
     surface = Surface,
     surfaceVariant = SurfaceVariant,
@@ -26,6 +27,7 @@ private val DarkColorScheme = darkColorScheme(
 private val LightColorScheme = lightColorScheme(
     primary = Primary,
     secondary = Accent,
+    tertiary = GradientEnd,
     background = Background,
     surface = Surface,
     surfaceVariant = SurfaceVariant,

@@ -2,6 +2,7 @@ package com.p2pmessenger.ui.screens.chat
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -151,21 +152,27 @@ fun ChatScreen(
                 
                 Spacer(modifier = Modifier.width(8.dp))
                 
-                IconButton(
-                    onClick = {
-                        if (messageText.isNotBlank()) {
-                            coroutineScope.launch {
-                                // Send message logic here
-                                messageText = ""
+                // Orange send button like SoundCloud
+                Box(
+                    modifier = Modifier
+                        .size(48.dp)
+                        .clip(CircleShape)
+                        .background(if (messageText.isNotBlank()) Primary else SurfaceVariant)
+                        .clickable(enabled = messageText.isNotBlank()) {
+                            if (messageText.isNotBlank()) {
+                                coroutineScope.launch {
+                                    // Send message logic here
+                                    messageText = ""
+                                }
                             }
-                        }
-                    },
-                    enabled = messageText.isNotBlank()
+                        },
+                    contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         imageVector = Icons.Default.Send,
                         contentDescription = "Send",
-                        tint = if (messageText.isNotBlank()) Primary else TextSecondary
+                        tint = Color.White,
+                        modifier = Modifier.size(24.dp)
                     )
                 }
             }
@@ -193,7 +200,7 @@ fun MessageBubble(message: Message) {
                     RoundedCornerShape(16.dp, 16.dp, 16.dp, 4.dp)
                 },
                 colors = CardDefaults.cardColors(
-                    containerColor = if (message.isOutgoing) MessageOut else MessageIn
+                    containerColor = if (message.isOutgoing) Primary else SurfaceVariant
                 ),
                 elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                 modifier = Modifier.clickable { }
@@ -234,7 +241,7 @@ fun MessageBubble(message: Message) {
                         },
                         contentDescription = null,
                         tint = if (message.status == com.p2pmessenger.data.model.MessageStatus.READ) 
-                            Accent else TextSecondary,
+                            Primary else TextSecondary,
                         modifier = Modifier.size(14.dp)
                     )
                 }

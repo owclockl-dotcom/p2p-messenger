@@ -60,14 +60,11 @@ fun ChatListScreen(
             )
         },
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = onQRCodeClick,
-                containerColor = SurfaceVariant,
-                contentColor = Color.White
-            ) {
-                Icon(Icons.Default.Add, contentDescription = "New Chat")
-            }
-        }
+            GradientFAB(
+                onClick = onQRCodeClick
+            )
+        },
+        containerColor = Background
     ) { padding ->
         if (chats.isEmpty()) {
             EmptyState(
@@ -188,7 +185,7 @@ fun ChatItem(
                     if (chat.unreadCount > 0) {
                         Spacer(modifier = Modifier.width(8.dp))
                         Badge(
-                            containerColor = SurfaceVariant
+                            containerColor = Primary
                         ) {
                             Text(
                                 text = if (chat.unreadCount > 99) "99+" else chat.unreadCount.toString(),
@@ -216,19 +213,39 @@ fun EmptyState(
             imageVector = Icons.Default.ChatBubbleOutline,
             contentDescription = null,
             modifier = Modifier.size(80.dp),
-            tint = TextSecondary
+            tint = Primary
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = "No chats yet",
             fontSize = 18.sp,
-            color = TextSecondary
+            color = Color.White,
+            fontWeight = FontWeight.Medium
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "Scan a QR code to connect with a peer",
+            text = "Tap + to connect with a peer",
             fontSize = 14.sp,
             color = TextSecondary
+        )
+    }
+}
+
+@Composable
+fun GradientFAB(
+    onClick: () -> Unit
+) {
+    FloatingActionButton(
+        onClick = onClick,
+        containerColor = Primary,
+        contentColor = Color.White,
+        shape = CircleShape,
+        modifier = Modifier.size(56.dp)
+    ) {
+        Icon(
+            imageVector = Icons.Default.Add,
+            contentDescription = "New Chat",
+            modifier = Modifier.size(28.dp)
         )
     }
 }
